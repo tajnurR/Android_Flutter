@@ -25,4 +25,7 @@ class Mytheme{
     brightness: Brightness.dark,
   );
 
+  static Color creamColor = Color(0xfff5f5f5);
+  static Color deepBlush = Color(0xff403b58);
+
 }

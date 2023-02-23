@@ -1,11 +1,14 @@
 import 'dart:convert';
 
 import 'package:e_commerce/models/catalog.dart';
-import 'package:e_commerce/widget/drawer.dart';
-import 'package:e_commerce/widget/item_widget.dart';
+import 'package:e_commerce/widget/home_page/catalog_header.dart';
+import 'package:e_commerce/widget/home_page/catalog_list.dart';
+import 'package:e_commerce/widget/themes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import "package:velocity_x/velocity_x.dart";
+import '';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,7 +16,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final String iurl = "https://images.unsplash.com/photo-1606041011872-596597976b25?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YXBwbGUlMjBpcGhvbmV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60";
 
   @override
   void initState() {
@@ -35,25 +37,20 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Products"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView.builder(
-          itemCount: CatalogModel.item.length,
-            itemBuilder: (context, index){
-            return ItemWidget(
-              item: CatalogModel.item[index],
-            );
-            }
+      body: SafeArea(
+        child: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+                CatalogHeader(),
+                if(CatalogModel.item != null && CatalogModel.item.isNotEmpty)
+                  CatalogList().py16().expand()
+              else
+                CircularProgressIndicator().centered().expand()
+            ],
+          ),
         ),
       ),
-
-
-      drawer: MyDrawer(),
     );
   }
-
-
 }
